@@ -2,7 +2,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 @receiver(post_save, sender=CustomUser)
-def update_user(sender, instance, **kwargs):
+def init_user(sender, instance, **kwargs):
 
     if kwargs['created']:
 

@@ -19,7 +19,7 @@ AWS_S3_HOST = 's3.{}.amazonaws.com'.format(AWS_S3_REGION)
 
 # AWS_STATIC_LOCATION = 'static'
 # STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
-# STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+# STATICFILES_STORAGE = 'files.storage_config.StaticStorage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -32,8 +32,8 @@ AWS_PRIVATE_MEDIA_LOCATION = 'private'
 MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
-DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
-PRIVATE_FILE_STORAGE = 'core.storage_backends.PrivateMediaStorage'
+DEFAULT_FILE_STORAGE = 'files.storage_config.PublicMediaStorage'
+PRIVATE_FILE_STORAGE = 'files.storage_config.PrivateMediaStorage'
 
 # Email stuff
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

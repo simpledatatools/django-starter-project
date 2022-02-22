@@ -6,7 +6,6 @@ from accounts.models import *
 # Specific Fields
 from django.db.models import JSONField
 from django.conf import settings
-from core.storage_backends import PublicMediaStorage, PrivateMediaStorage
 
 # Settings
 from django.conf import settings

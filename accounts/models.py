@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from core.storage_backends import PublicMediaStorage, PrivateMediaStorage
+
 from home.models import *
+from files.models import *
 
 class CustomUser(AbstractUser):
     pass
@@ -15,9 +16,10 @@ class CustomUser(AbstractUser):
 
 class UserExtras(models.Model):
     id = models.AutoField(primary_key=True)
+    profile_photo = models.ForeignKey('files.AppFile', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     last_updated = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return str(self.id)
 

@@ -31,8 +31,8 @@ AWS_S3_HOST = 's3.{}.amazonaws.com'.format(AWS_S3_REGION)
 
 #AWS_STATIC_LOCATION = 'static'
 #STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
-#STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
-DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+#STATICFILES_STORAGE = 'files.storage_config.StaticStorage'
+DEFAULT_FILE_STORAGE = 'files.storage_config.PublicMediaStorage'
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # The URL to use when referring to static files (where they will be served from)
@@ -42,7 +42,7 @@ AWS_PUBLIC_MEDIA_LOCATION = 'media'
 AWS_PRIVATE_MEDIA_LOCATION = 'private'
 MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-PRIVATE_FILE_STORAGE = 'core.storage_backends.PrivateMediaStorage'
+PRIVATE_FILE_STORAGE = 'files.storage_config.PrivateMediaStorage'
 
 # CELERY STUFF
 BROKER_URL = os.environ['REDIS_URL']
