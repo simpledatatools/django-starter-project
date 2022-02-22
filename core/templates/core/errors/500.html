@@ -1,9 +1,9 @@
-{% extends "home/base/base.html" %}
+{% extends "core/base/base.html" %}
 {% load custom_tags %}
 {% load static %}
 
 {% block topbar %}
-{% include "home/base/navbar.html" %}
+{% include "core/base/navbar.html" %}
 {% endblock %}
 
 {% block content %}
@@ -12,8 +12,8 @@
     <div class="row gx-5 justify-content-center">
         <div class="col-lg-6">
             <div class="text-center">
-                <img class="img-fluid" src="{% static 'assets/img/illustrations/403.png' %}" alt="...">
-                <p class="lead">You are not allowed to access this page.</p>
+                <img class="img-fluid" src="{% static 'assets/img/illustrations/500.png' %}" alt="...">
+                <p class="lead">Whoop. That's a bug. We'll check on that!</p>
             </div>
         </div>
     </div>

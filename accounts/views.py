@@ -10,7 +10,6 @@ from .utils import create_link
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 
-
 class LoginView(View):
     template_name = 'login.html'
 
