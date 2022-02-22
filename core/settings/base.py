@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'accounts',
     'files',
     'messaging',
+    'workspaces',
+    'documents',
     'home',
 
 ]

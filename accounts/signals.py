@@ -1,8 +1,7 @@
-from django.dispatch import receiver
 from django.db.models.signals import post_save
+from .models import *
 
-@receiver(post_save, sender=CustomUser)
-def init_user(sender, instance, **kwargs):
+def initUser(sender, instance, **kwargs):
 
     if kwargs['created']:
 
@@ -20,4 +19,4 @@ def init_user(sender, instance, **kwargs):
         instance.user_extras = user_extras
         instance.save()
 
-        # Add here anything else that would be needed on initial create
+post_save.connect(initUser, sender=CustomUser)
