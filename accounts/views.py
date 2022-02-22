@@ -4,7 +4,7 @@ from django.views import View
 from .forms import *
 from .models import *
 
-from messaging.mail_utils import SendUserMail
+from messaging.tasks import send_email
 from .utils import create_link
 
 from django.conf import settings
@@ -56,9 +56,8 @@ class RegistrationView(View):
             obj.key = key
             obj.save()
 
-            # TODO fix so this is a background celery task
-            mail = SendUserMail(recipient_name=user_name, link=link, recipient_list=user_email, subject="Complete Starter Project Sign Up", mail_for="sign-up")
-            status = mail.send()
+            # Send email out using celery
+            send_email.delay(recipient_name=user_name, link=link, recipient_list=user_email, subject="Complete Starter Project Sign Up", mail_for="sign-up")
 
             context = {'email': user_email, 'render_kind': 'signup'}
 
@@ -119,9 +118,8 @@ class ResetPasswordView(View):
                 obj.key = key
                 obj.save()
 
-                # TODO convert to background task 
-                mail = SendUserMail(recipient_name=user_name, link=link, recipient_list=user_email, subject="Reset your Starter Project password", mail_for="reset-password")
-                status = mail.send()
+                # Send email out using celery
+                send_email.delay(recipient_name=user_name, link=link, recipient_list=user_email, subject="Reset your Starter Project password", mail_for="reset-password")
                 
                 context = {'email': user_email, 'render_kind': 'reset_password'}
 
@@ -155,8 +153,10 @@ class CreateNewPasswordView(View):
 
             user_email = user.email
             user_name = user.get_full_name()
-            mail = SendUserMail(recipient_name=user_name, link='', recipient_list=user_email, subject="Your Starter Project Password Was Changed", mail_for="password-change")
-            status = mail.send()
+
+            # Send email out using celery
+            send_email.delay(recipient_name=user_name, link='', recipient_list=user_email, subject="Your Starter Project Password Was Changed", mail_for="password-change")
+
             return render(request, 'confirm-page.html', {'render_kind': 'password_updated'})
 
         else:

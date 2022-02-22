@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
 from django.conf import settings
 
-class SendUserMail:
+class SendMail:
     def __init__(self, recipient_name: str, link: str, recipient_list: list, subject: str, mail_for: str):
         self.recipient_name = recipient_name
         self.link = link
