@@ -10,14 +10,13 @@ class Workspace(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     workspace_id  = models.CharField(max_length=16, null=True)
-    public_key = models.CharField(editable=False, max_length=64, null=True)
 
     WORKSPACE_STATUS = (
         ('active', 'Active'),
         ('archived', 'Archived'),
         ('deleted', 'Deleted'),
     )
-
+    
     status = models.CharField(
         max_length=25,
         choices=WORKSPACE_STATUS,
