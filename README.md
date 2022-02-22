@@ -5,6 +5,9 @@
 The Django Starter Project is a template we use as a starting point for all django projects. There are a lot of amazing django starter projects out there (i.e. Djangox and cookiecutter-django are two well known ones) which can usually be applied to any django project and are built to be an optimal between "batteries included" + flexibility. These project are amazing, but in our case we were still finding that we needed to always do a lot of the same work over and over again for all projects:
 * Adding in and configuring third-party services (i.e. S3, adding mailgun, etc)
 * Adding in and configuring workflows, features, and functionality that are common to almost all applications (i.e. creating user profiles, login / register flows, adding support for files, setting up emails notifications and messaging, etc.)
+* Setting up an API, especially for things needs for all projects (file storage, lists of records, etc.)
+
+For sure, many of the preferences / services used in this application will not meet everyone's needs or by liked by all. But in general, the project uses the most popular services and frameworks, so that most people will find a great deal of code they can build upon. For example, a huge percentage of django projects use S3 for storage and deploy using Heroku. Likewise, there are other options for REST frameworks, but the DRF seems to be the most popular by far. Popularity and support drove most decisions when framing things out to create a starting point that cuts down on most of the work we face whenever starting something new.
 
 
 ## How to run the project and get started
