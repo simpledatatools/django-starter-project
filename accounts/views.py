@@ -4,7 +4,9 @@ from django.views import View
 from .forms import *
 from .models import *
 
-from .mail_utils import create_link, SendUserMail
+from messaging.mail_utils import SendUserMail
+from .utils import create_link
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 
