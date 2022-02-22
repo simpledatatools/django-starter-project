@@ -2,12 +2,7 @@
 
 ## About this project
 
-The Django Starter Project is a template we use as a starting point for all django projects. There are a lot of amazing django starter projects out there (i.e. DjangoX and cookiecutter-django are two well known ones) build for flexibility and which can usually be applied to any django project. These work great, but in our case we were still finding that we needed to always do a lot of the same work that all of our applications needed, such as integrating with S3, adding mailgun, creating user profiles, login / register flows, adding support for files, records, etc.
-
-
-## Why is this project developed on Django?
-
-Django is fast, simple, and proven, which is exactly what we do. Django was also chosen because python is popular programming language that is known by many developers. Django is very easy to learn, and we hope this means that many developers of all levels will be able to contribute to or use the projects we publish.
+The Django Starter Project is a template we use as a starting point for all django projects. There are a lot of amazing django starter projects out there (i.e. Djangox and cookiecutter-django are two well known ones) which can usually be applied to any django project and are built to be an optimal between "batteries included" + flexibility. These project are amazing, but in our case we were still finding that we needed to always do a lot of the same work over and over again for all projects, such as integrating with S3, adding mailgun, creating user profiles, login / register flows, adding support for files, records, etc.
 
 
 ## How to run the project and get started
