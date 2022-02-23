@@ -10,6 +10,16 @@ handler403 = home_views.error_403
 handler404 = home_views.error_404
 
 urlpatterns = [
+
+    # API
+    path('api/users/', include('api.urls.user_urls')),
+    path('api/workspaces/', include('api.urls.workspace_urls')),
+    path('api/tags/', include('api.urls.tag_urls')),
+    path('api/categories/', include('api.urls.category_urls')),
+    path('api/fields/', include('api.urls.field_urls')),
+    path('api/documents/', include('api.urls.document_urls')),
+    
+    # Web App
     path('', include('accounts.urls')),
     path('', include('home.urls')),
     path('', include('django.contrib.auth.urls')),
