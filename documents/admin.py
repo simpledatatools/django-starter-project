@@ -12,11 +12,6 @@ class FieldAdmin(admin.ModelAdmin):
 
 admin.site.register(Field, FieldAdmin)
 
-class TagAdmin(admin.ModelAdmin):
-    list_display = ['id', 'label', 'tag_id', 'workspace', 'status']
-
-admin.site.register(Tag, TagAdmin)
-
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ['id', 'document_id', 'category', 'status']
 

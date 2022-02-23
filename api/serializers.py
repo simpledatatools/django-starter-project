@@ -76,6 +76,18 @@ class TagSerializer(serializers.ModelSerializer):
     def get_workspace_id(self, obj):
         return obj.workspace.workspace_id
 
+
+class PageSerializer(serializers.ModelSerializer):
+    workspace_id = serializers.SerializerMethodField(read_only=True)
+    
+    class Meta:
+        model = Page
+        fields = ['page_id', 'page_slug', 'workspace_id', 'label']
+
+    def get_workspace_id(self, obj):
+        return obj.workspace.workspace_id
+
+
 class DocumentSerializer(serializers.ModelSerializer):
     category_id = serializers.SerializerMethodField(read_only=True)
     

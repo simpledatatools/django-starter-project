@@ -93,11 +93,11 @@ class Tag(models.Model):
 class Page(models.Model):
     id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200)
     workspace = models.ForeignKey('workspaces.Workspace', on_delete=models.SET_NULL, null=True)
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+    page_slug = models.CharField(max_length=200, null=False, blank=False)
     page_id  = models.CharField(max_length=16, null=True)
 
     PAGE_STATUS = (
