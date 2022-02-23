@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Local
+    'theme',
     'accounts',
     'files',
     'messaging',
