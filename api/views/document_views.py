@@ -11,6 +11,7 @@ from api.serializers import DocumentSerializer
 from rest_framework import status
 
 from .permissions_check import *
+from core.utils import randomstr
 
 
 @api_view(['POST'])
@@ -35,6 +36,7 @@ def createDocument(request):
 
                     document = Document.objects.create(
                         category=category,
+                        document_id = randomstr(),
                         created_user=user,
                     )
                     

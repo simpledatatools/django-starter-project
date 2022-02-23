@@ -11,6 +11,7 @@ from api.serializers import FieldSerializer
 from rest_framework import status
 
 from .permissions_check import *
+from core.utils import randomstr
 
 
 @api_view(['POST'])
@@ -37,6 +38,7 @@ def createField(request):
                         name=data['name'],
                         type=data['type'],
                         category=category,
+                        field_id = randomstr(),
                         created_user=user,
                     )
                     

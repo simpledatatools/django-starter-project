@@ -9,7 +9,7 @@ class Workspace(models.Model):
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    workspace_id  = models.CharField(max_length=16, null=True)
+    workspace_id  = models.CharField(max_length=16, null=False, blank=True)
 
     WORKSPACE_STATUS = (
         ('active', 'Active'),
@@ -71,7 +71,7 @@ class Tag(models.Model):
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    tag_id  = models.CharField(max_length=16, null=True)
+    tag_id  = models.CharField(max_length=16, null=False, blank=True)
 
     TAG_STATUS = (
         ('active', 'Active'),
@@ -98,7 +98,7 @@ class Page(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
     page_slug = models.CharField(max_length=200, null=False, blank=False)
-    page_id  = models.CharField(max_length=16, null=True)
+    page_id  = models.CharField(max_length=16, null=False, blank=True)
 
     PAGE_STATUS = (
         ('active', 'Active'),

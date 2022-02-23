@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # Local
-    'theme',
-    'accounts',
-    'files',
-    'messaging',
-    'workspaces',
-    'documents',
-    'home',
+    'theme.apps.ThemeConfig',
+    'accounts.apps.AccountsConfig',
+    'files.apps.FilesConfig',
+    'messaging.apps.MessagingConfig',
+    'workspaces.apps.WorkspacesConfig',
+    'documents.apps.DocumentsConfig',
+    'home.apps.HomeConfig',
 
 ]
 

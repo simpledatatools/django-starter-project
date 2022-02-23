@@ -11,6 +11,7 @@ from api.serializers import WorkspaceSerializer
 from rest_framework import status
 
 from .permissions_check import *
+from core.utils import randomstr
 
 
 @api_view(['POST'])
@@ -24,6 +25,7 @@ def createWorkspace(request):
         # Create the workspace
         workspace = Workspace.objects.create(
             name=data['name'],
+            workspace_id = randomstr(),
             created_user=user,
         )
 

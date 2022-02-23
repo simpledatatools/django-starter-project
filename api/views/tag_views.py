@@ -11,6 +11,7 @@ from api.serializers import TagSerializer
 from rest_framework import status
 
 from .permissions_check import *
+from core.utils import randomstr
 
 
 @api_view(['POST'])
@@ -31,6 +32,7 @@ def createTag(request):
                 tag = Tag.objects.create(
                     label=data['label'],
                     workspace=workspace,
+                    tag_id = randomstr(),
                     created_user=user,
                 )
 

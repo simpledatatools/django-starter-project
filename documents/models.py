@@ -12,7 +12,7 @@ class Category(models.Model):
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    category_id  = models.CharField(max_length=16, null=True)
+    category_id  = models.CharField(max_length=16, null=False, blank=True)
 
     CATEGORY_STATUS = (
         ('active', 'Active'),
@@ -38,7 +38,7 @@ class Field(models.Model):
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    field_id  = models.CharField(max_length=16, null=True)
+    field_id  = models.CharField(max_length=16, null=False, blank=True)
 
     FIELD_TYPE = (
         ('text', 'Text'),
@@ -80,7 +80,7 @@ class Document(models.Model):
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    document_id  = models.CharField(max_length=16, null=True)
+    document_id  = models.CharField(max_length=16, null=False, blank=True)
 
     config = JSONField(null=True, blank=True)
 

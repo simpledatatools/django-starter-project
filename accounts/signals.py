@@ -10,7 +10,7 @@ def initUser(sender, instance, **kwargs):
         instance.username = email # Override username to be email
         instance.email = email
         instance.save()
-
+        
         # Create the user extras record for storing attributes
         user_extras = UserExtras()
         user_extras.user = instance

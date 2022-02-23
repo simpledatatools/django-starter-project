@@ -26,7 +26,7 @@ class LoginForm(forms.Form):
     )
 
     def clean(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email').lower()
         password = self.cleaned_data.get('password')
         if CustomUser.objects.filter(email=email).exists() is False:
             raise ValidationError("Email does not exist! Please create an account before logging in.")
@@ -100,7 +100,7 @@ class RegistrationForm(UserCreationForm):
         return password2
 
     def clean(self):
-       email = self.cleaned_data.get('email')
+       email = self.cleaned_data.get('email').lower()
        if CustomUser.objects.filter(email=email).exists():
             raise ValidationError("Email is already exists, please use unique email address")
        return self.cleaned_data
@@ -108,7 +108,7 @@ class RegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        user.username = create_username(self.cleaned_data.get('first_name'))
+        user.username = self.cleaned_data.get('email').lower()
         user.is_active = False
         if commit:
             user.save()

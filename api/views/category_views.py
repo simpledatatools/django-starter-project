@@ -11,6 +11,7 @@ from api.serializers import CategorySerializer
 from rest_framework import status
 
 from .permissions_check import *
+from core.utils import randomstr
 
 
 @api_view(['POST'])
@@ -31,6 +32,7 @@ def createCategory(request):
                 category = Category.objects.create(
                     name=data['name'],
                     workspace=workspace,
+                    category_id = randomstr(),
                     created_user=user,
                 )
 

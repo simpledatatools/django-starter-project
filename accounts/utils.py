@@ -2,7 +2,7 @@ from django.conf import settings
 import string
 import random
 
-# Creates in initial username with random characters
+# Creates in initial username with random characters (not currently used)
 def create_username(name):
         name = name.replace(" ", "")
         choices = string.ascii_letters + string.hexdigits
