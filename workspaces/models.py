@@ -92,7 +92,7 @@ class Tag(models.Model):
 
 class Page(models.Model):
     id = models.AutoField(primary_key=True)
-    label = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
     workspace = models.ForeignKey('workspaces.Workspace', on_delete=models.SET_NULL, null=True)
     created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -114,4 +114,4 @@ class Page(models.Model):
     )
 
     def __str__(self):
-        return self.label
+        return self.title
