@@ -23,3 +23,10 @@ def initWorkspaceUser(sender, instance, **kwargs):
         )
 
 post_save.connect(initWorkspaceUser, sender=Workspace)
+
+def initTag(sender, instance, **kwargs):
+    tag = instance
+    # On init, add the other ids
+    if tag.tag_id == None:
+        tag.tag_id = randomstr()
+pre_save.connect(initTag, sender=Tag)

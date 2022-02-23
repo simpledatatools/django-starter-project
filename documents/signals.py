@@ -19,14 +19,6 @@ def initField(sender, instance, **kwargs):
 pre_save.connect(initField, sender=Field)
 
 
-def initTag(sender, instance, **kwargs):
-    tag = instance
-    # On init, add the other ids
-    if tag.tag_id == None:
-        tag.tag_id = randomstr()
-pre_save.connect(initTag, sender=Tag)
-
-
 def initDocument(sender, instance, **kwargs):
     document = instance
     # On init, add the other ids

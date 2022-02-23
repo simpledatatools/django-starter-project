@@ -74,32 +74,6 @@ class Field(models.Model):
         return self.name
 
 
-class Tag(models.Model):
-    id = models.AutoField(primary_key=True)
-    label = models.CharField(max_length=200)
-    workspace = models.ForeignKey('workspaces.Workspace', on_delete=models.SET_NULL, null=True)
-    created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_updated = models.DateTimeField(auto_now=True)
-    tag_id  = models.CharField(max_length=16, null=True)
-
-    TAG_STATUS = (
-        ('active', 'Active'),
-        ('archived', 'Archived'),
-        ('deleted', 'Deleted'),
-    )
-
-    status = models.CharField(
-        max_length=25,
-        choices=TAG_STATUS,
-        blank=False,
-        default='active',
-    )
-
-    def __str__(self):
-        return self.label
-
-
 class Document(models.Model):
     id = models.AutoField(primary_key=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)

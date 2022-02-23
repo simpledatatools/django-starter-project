@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from documents.models import Tag
+from workspaces.models import Tag
 from api.serializers import TagSerializer
 
 from rest_framework import status
