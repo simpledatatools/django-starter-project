@@ -99,7 +99,7 @@ class Page(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     page_slug = models.CharField(max_length=200, null=False, blank=False)
     page_id  = models.CharField(max_length=16, null=False, blank=True)
-
+    
     PAGE_STATUS = (
         ('active', 'Active'),
         ('archived', 'Archived'),
