@@ -1,0 +1,67 @@
+{% extends "app/base/full-screen-base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-xl">
+  <div class="bg-white p-8 shadow-md rounded-lg border border-gray-200" style="max-width: 700px;">
+      <h1 class="text-center text-2xl font-bold mb-4">Sign Up</h1>
+      <form method="post" action="{% url 'sign_up' %}" class="space-y-6">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="text-red-500 text-xs italic text-center mx-auto">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% for field in form %}
+          <div class="mb-4">
+              {{ field }}
+              {% if field.errors %}
+                  {% for error in field.errors %}
+                      <p class="text-red-500 text-xs italic mt-1">{{ error }}</p>
+                  {% endfor %}
+              {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#38B0CC] hover:bg-[#38a0cc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#38B0CC]">
+          Sign Up
+        </button>
+        <div class="mt-4 text-center">
+          By signing up, you agree to our
+          <a href="{% url 'terms' %}" target="_blank" class="text-black">terms of service</a> and our <a href="{% url 'privacy' %}" target="_blank" class="text-black">privacy policy</a>.
+        </div>
+        <div class="mt-4 text-center">
+          Already have an account?
+          <a href="{% url 'login' %}" class="text-black">Login</a>
+        </div>
+      </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+  /* JavaScript for adding an eye icon in the password field */
+  document.addEventListener('DOMContentLoaded', function() {
+    const passwordFields = document.querySelectorAll('input[type=password]');
+    passwordFields.forEach(field => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'relative';
+      field.parentNode.insertBefore(wrapper, field);
+      wrapper.appendChild(field);
+
+      const toggleBtn = document.createElement('button');
+      toggleBtn.type = 'button';
+      toggleBtn.className = 'absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5';
+      toggleBtn.innerHTML = `<span class="eye-btn"><i class="fas fa-eye password-visible password-toggle"></i><i class="fas fa-eye-slash password-hide password-toggle"></i></span>`;
+      wrapper.appendChild(toggleBtn);
+
+      toggleBtn.addEventListener('click', () => {
+        const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
+        field.setAttribute('type', type);
+      });
+    });
+  });
+</script>
+{% endblock %}

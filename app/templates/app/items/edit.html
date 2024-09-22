@@ -1,0 +1,94 @@
+{% extends "app/base/full-screen-content-base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Edit Item</h1>
+    <form id="edit-item-form" method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+            <input type="text" id="name" name="name" class="shadow itemearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+        <div class="flex items-center justify-between">
+            <button id="submit-button" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
+        </div>
+    </form>
+    <div id="error-message" class="text-red-500 mt-4 hidden"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('edit-item-form');
+    const submitButton = document.getElementById('submit-button');
+    const errorMessage = document.getElementById('error-message');
+    const itemId = "{{ item.item_id }}"; // Assuming you pass the item_id to the template context
+
+    // Fetch the existing item details
+    fetch(`/admin/fetch/items/${itemId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                errorMessage.textContent = data.error;
+                errorMessage.classList.remove('hidden');
+            } else {
+                document.getElementById('name').value = data.item.name;
+            }
+        })
+        .catch(error => {
+            errorMessage.textContent = 'Error fetching item details.';
+            errorMessage.classList.remove('hidden');
+        });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('name').value;
+
+        // Client-side validation
+        if (!name) {
+            errorMessage.textContent = 'All fields are required.';
+            errorMessage.classList.remove('hidden');
+            return;
+        }
+
+        // Hide error message if validation passes
+        errorMessage.classList.add('hidden');
+
+        // Disable the submit button and show the spinner
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 ..."><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"></path></svg> Saving...';
+
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        
+        // Send POST request
+        fetch(`/admin/fetch/items/edit/${itemId}/`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => { throw new Error(data.error); });
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Redirect or show success message
+            window.location.href = "{% url 'items' %}";
+        })
+        .catch(error => {
+            errorMessage.textContent = error.message;
+            errorMessage.classList.remove('hidden');
+            // Re-enable the submit button and restore its text
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Save';
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "app/base/full-screen-base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-xl">
+    <div class="bg-white p-8 shadow-md rounded-lg border border-gray-200" style="max-width: 700px;">
+        <h1 class="text-center text-2xl font-bold mb-4">Login</h1>
+        <form method="post" action="{% url 'login' %}" class="space-y-6">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="text-red-500 text-xs italic text-center mx-auto">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="mb-4">
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="text-red-500 text-xs italic mt-1">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <!-- Submit button -->
+            <button type="submit" class="relative w-full flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-[#38B0CC] hover:bg-[#38a0cc] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#38B0CC]">
+                Login
+            </button>
+            <!-- Signup and reset password links -->
+            <div class="mt-3 text-center">
+                Don't have an account yet?
+                <a href="{% url 'sign_up' %}" class="text-black">Sign Up</a>
+            </div>
+            <div class="mt-3 text-center">
+                Forgot your password?
+                <a href="{% url 'reset_password' %}" class="text-black">Reset Password</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

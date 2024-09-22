@@ -1,0 +1,14 @@
+{% extends "app/base/full-screen-base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-xl">
+    <div class="bg-white p-8 shadow-md rounded-lg border border-gray-200" style="max-width: 700px;">
+        <!-- Conditional class application based on message_type -->
+        <h2 class="text-3xl font-bold mb-4 {% if message_type == 'error' %}text-red-500{% endif %}">{{ message_title }}</h2>
+        <p class="mb-6 {% if message_type == 'error' %}text-red-500{% endif %}">{{ message_body }}</p>
+
+        <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Go to Home</a>
+    </div>
+</div>
+{% endblock %}

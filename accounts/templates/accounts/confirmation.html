@@ -1,0 +1,154 @@
+{% extends "app/base/full-screen-base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="w-full max-w-xl mx-auto">
+  <div class="bg-white p-8 shadow-md rounded-lg border border-gray-200">
+        <div id="alert-container" class="mb-4"></div>
+        
+        <div>
+          {% if render_kind == 'signup' %}
+          <p class="mb-3">
+              Thanks so much for signing up! An email with an account confirmation link has been sent to <b>{{ email }}.</b>
+              Please confirm your account before logging in to get started.
+          </p>
+          <p class="mb-3">
+            Didn't get the email? 
+            <a href="javascript:void(0);" onclick="resendEmail('accountVerification'); return false;" class="text-black underline">
+                Please click here to resend.
+            </a>
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'account_verification' %}
+          <p class="mb-3 text-red-700">
+              Account verification required. Please check your email to verify your account.
+          </p>
+          <p class="mb-3">
+            Didn't get the email? 
+            <a href="javascript:void(0);" onclick="resendEmail('accountVerification'); return false;" class="text-black underline">
+                Please click here to resend.
+            </a>
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'signup_confirmed' %}
+          <p class="mb-3">
+            Your account has been confirmed! Click below to login and get started.
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'password_updated' %}
+          <p class="mb-3">
+            Your password was successfully updated.
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'invalid_key' %}
+          <p class="mb-3 text-red-700">
+            The link is expired or invalid.
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'reset_password' %}
+          <p class="mb-3">
+            An email with instructions to reset your password has been sent to <b>{{ email }}</b>.
+          </p>
+          <p class="mb-3">
+            Didn't get the email? 
+            <a href="javascript:void(0);" onclick="resendEmail('passwordReset'); return false;" class="text-black underline">
+              Please click here to resend.
+            </a>
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'change_password' %}
+          <p class="mb-3">
+            An email with instructions to change your password has been sent to <b>{{ email }}</b>.
+          </p>
+          <p class="mb-3">
+            Didn't get the email? 
+            <a href="javascript:void(0);" onclick="resendEmail('changePassword'); return false;" class="text-black underline">
+              Please click here to resend.
+            </a>
+          </p>
+          {% endif %}
+
+          {% if render_kind == 'email_change' %}
+          <p class="mb-3">
+            We sent a confirmation email to <b>{{ email }}</b>. Please verify your new email in the link that has been provided.
+          </p>
+          <p class="mb-3">
+            Didn't get the email? 
+            <a href="javascript:void(0);" onclick="resendEmail('changeEmail'); return false;" class="text-black underline">
+              Please click here to resend.
+            </a>
+          </p>
+          {% endif %}
+
+          <a class="mt-3 text-black" href="{% url 'login' %}">Return to Login</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function resendEmail(emailType) {
+        var urlMap = {
+            'accountVerification': "{% url 'resend_verification_email' %}",
+            'passwordReset': "{% url 'resend_password_reset_email' %}",
+            'changePassword': "{% url 'resend_password_change_email' %}",
+            'changeEmail': "{% url 'resend_email_change_email' %}",
+        };
+
+        var alertMessages = {
+            'accountVerification': 'Verification email resent. Please check your inbox.',
+            'passwordReset': 'Password reset verification email resent. Please check your inbox.',
+            'changePassword': 'Password change verification email resent. Please check your inbox.',
+            'changeEmail': 'Email change verification link resent. Please check your inbox.', 
+        };
+
+        var email = '{{ email }}';  // Assuming email is available in the template context
+
+        const url = urlMap[emailType];
+        const csrfToken = '{{ csrf_token }}';
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ email: email })
+        })
+        /*
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        }) */
+        .then(data => {
+            displayAlert(alertMessages[emailType], 'success');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            displayAlert('An error occurred while resending the email. Please try again.', 'error');
+        });
+    }
+
+    function displayAlert(message, type) {
+        const alertContainer = document.getElementById('alert-container');
+        const alert = document.createElement('div');
+        alert.className = `p-4 mb-4 text-sm ${type === 'success' ? 'text-green-800 bg-green-100' : 'text-red-800 bg-red-100'} rounded-lg`;
+        alert.innerText = message;
+        alertContainer.appendChild(alert);
+
+        setTimeout(() => {
+            alert.remove();
+        }, 5000);
+    }
+</script>
+{% endblock %}
